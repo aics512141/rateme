@@ -13,6 +13,7 @@ function SelectInput(props) {
                 {...input}
                 {...rest}
                 label={input.label}
+                size='small'
 
             >
                 {
