@@ -6,8 +6,10 @@ import { useEffect } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteUser from "./DeleteUser";
+import { userTypes } from "../utils/constants";
 
-function Users({ users, loadUsers }) {
+function Users({ users, loadUsers, loggedInUserType  }) {
 
   useEffect(() => {
     if (users.length === 0)
@@ -33,7 +35,11 @@ function Users({ users, loadUsers }) {
             <TableCell> Name</TableCell>
             <TableCell> Phone</TableCell>
             <TableCell> Email</TableCell>
-            <TableCell> Type</TableCell>
+            {
+                   loggedInUserType === userTypes.USER_TYPE_SUPER && 
+                   <TableCell> Type</TableCell>
+
+            }
             <TableCell> Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -45,15 +51,20 @@ function Users({ users, loadUsers }) {
                 <TableCell> {user.name}</TableCell>
                 <TableCell> {user.phoneNumber}</TableCell>
                 <TableCell> {user.email}</TableCell>
-                <TableCell>
+                { 
+                   loggedInUserType === userTypes.USER_TYPE_SUPER && 
+
+                  <TableCell>
                   {
                     user.type == 1 ?
                       <Chip size='small' label="Super Admin" color="secondary" /> :
                       <Chip size='small' label="Standard" color="primary" />
                   }
                 </TableCell>
+                }
                 <TableCell>
                   <IconButton component={Link} to={`/admin/users/edit/${user._id}`}><EditIcon /></IconButton>
+                  <DeleteUser userId={user._id} name={user.name}/>
                 </TableCell>
               </TableRow>
             ))
@@ -67,7 +78,9 @@ function Users({ users, loadUsers }) {
 
 const mapStateToProps = (state) => {
   return {
-    users: state.users.records
+    users: state.users.records,
+    loggedInUserType: state.auth.user.type
+
   }
 }
 

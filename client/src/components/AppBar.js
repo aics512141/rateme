@@ -62,7 +62,7 @@ function AppBar(){
                         </Button>
                         {
                         userType === userTypes.USER_TYPE_STANDARD &&
-                        <Button LinkComponent={Link} to={`/admin/departments/${user.departmentId}`} sx={{ color: 'white' }}>Employees</Button>
+                        <Button LinkComponent={Link} to={`/admin/employees/${user.departmentId}`} sx={{ color: 'white' }}>Employees</Button>
                         }
 
                     </Box>
