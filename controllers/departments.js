@@ -84,8 +84,8 @@ router.post("/edit", upload.single("logo"), async (req, res) => {
 
     //check if logged in user is not super admin and that user 
     //has access to its own department
-    if (req.user.type !== userTypes.USER_TYPE_SUPER && req.user._id.toString() !== department.userId.toString()) // to string is used to convert req.user._id to string because this returns new ObjectId("6439f4ca31d7babed61963e0") that is object user id and we need only string to compare it.
-      throw new Error("Invalid request");
+    if (req.user.type !== userTypes.USER_TYPE_SUPER && req.user.departmentId.toString() !== req.body.id)
+    throw new Error("Invalid Request");
 
     const record = {
       name: req.body.name,
@@ -93,6 +93,9 @@ router.post("/edit", upload.single("logo"), async (req, res) => {
       phone: req.body.phone,
       address: req.body.address,
     };
+
+    if(req.user.type === userTypes.USER_TYPE_SUPER)
+      record.name = req.body.name
 
     if (req.file && req.file.filename) {
       record.logo = req.file.filename;
@@ -151,5 +154,20 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/details/:deptId", async (req, res) => {
+  try {
+    if(!req.params.deptId)
+       throw new Error("Department ID is required");
+    //only super admin can see list of departments
+    if (req.user.type !== userTypes.USER_TYPE_SUPER && req.user.departmentId.toString() !== req.params.deptId)
+      throw new Error("Invalid Request");
+
+    const department = await Department.findById(req.params.deptId);
+
+    res.status(200).json({ department });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 module.exports = router;
