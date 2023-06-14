@@ -21,6 +21,7 @@ import EditUser from "./components/users/EditUser";
 import AddUser from "./components/users/AddUser";
 import { userTypes } from "./components/utils/constants";
 import Employees from "./components/employees/Employees";
+import AddEmployees from "./components/employees/AddEmployees";
 
 const publicRoutes = [ '/admin/signin', '/admin/forgot-password', '/admin/reset-password/']
 
@@ -72,6 +73,7 @@ function App({loadAuth, signout,isAuthloaded, user, userType}) {
           <Route path="/admin/users/add" Component={AddUser} />
           <Route path="/admin/users/edit/:userId" Component={EditUser} />
           <Route path="/admin/employees/:deptId" Component={Employees} />
+          <Route path="/admin/employees/add/:deptId" Component={AddEmployees} />
         </Routes>
       </Container>
 
