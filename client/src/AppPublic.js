@@ -5,16 +5,18 @@ import SignIn from "./components/auth/SignIn";
 import { Box } from "@mui/material";
 import Alert from "./components/library/Alert";
 import Home from "./feedback/Home";
+import FeedBack from "./feedback/FeedBack";
 
 function AppPublic(){
     return(
-        <Box display="flex" justifyContent="center" alignItems="center" height="100%"> 
+        <Box display="flex" justifyContent="center" alignItems="center" minheight="100%"> 
             <Alert />
             <Routes>
                 <Route path="/admin/signin" Component={SignIn} />
                 <Route path="/admin/forgot-password" Component={ForgotPassword} />
                 <Route path="/admin/reset-password/:resetCode" Component={ResetPassword} />
                 <Route path="/" Component={Home} />
+                <Route path="/employee/feedback/:employeeId" Component={FeedBack} />
             </Routes>
         </Box>
     )

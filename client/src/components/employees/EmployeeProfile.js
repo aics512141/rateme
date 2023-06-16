@@ -42,7 +42,7 @@ function EmployeeProfile() {
                 <Typography color="#706f6f"> <b>Phone:</b> { employee.phone } </Typography>
                 <Typography color="#706f6f"> <b>CNIC:</b> { employee.cnic } </Typography>
                 <Typography color="#706f6f"> <b>Designation:</b> { employee.designation } </Typography>
-                <Typography color="#706f6f" > <Rating sx={{ mt: 1 }} readOnly precision={0.5}  value={employee.rating ? employee.rating : 0} /> </Typography>
+                <Typography color="#706f6f" > <Rating sx={{ mt: 1 }} readOnly precision={0.5}  value={employee.rating ? employee.rating : 0} /> ({employee.rating}) </Typography>
             </Grid>
 
         </Grid>
