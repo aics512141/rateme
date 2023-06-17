@@ -9,6 +9,8 @@ const { userTypes } = require("../utils/util");
 const multer = require('multer');
 const fs = require('fs').promises;
 const path = require('path');
+const Employee = require("../models/Employee");
+const Rating = require("../models/Rating");
 
 const storage = multer.diskStorage({
   destination: async (req, file, cb) => {
@@ -130,6 +132,9 @@ router.post("/delete", async (req, res) => {
     }
 
     await Department.findByIdAndDelete(req.body.id);
+    await Employee.deleteMany({departmentId : req.body.id})
+    await Rating.deleteMany({ departmentId : req.body.id })
+    await fs.rmdir(`content/${req.body.id}`, { recursive: true })
 
     res.json({ success: true });
   } catch (error) {
@@ -156,8 +161,8 @@ router.get("/details/:deptId", async (req, res) => {
     if(!req.params.deptId)
        throw new Error("Department ID is required");
     //only super admin can see list of departments
-    if (req.user.type !== userTypes.USER_TYPE_SUPER && req.user.departmentId.toString() !== req.params.deptId)
-      throw new Error("Invalid Request");
+    // if (req.user.type !== userTypes.USER_TYPE_SUPER && req.user.departmentId.toString() !== req.params.deptId)
+    //   throw new Error("Invalid Request");
 
     const department = await Department.findById(req.params.deptId);
 

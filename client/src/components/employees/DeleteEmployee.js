@@ -1,11 +1,7 @@
 import { Box, Button, IconButton, Popover, Typography } from '@mui/material'
 import React from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
-import { deleteDepartment } from '../../store/actions/departmentActions';
 import { useDispatch } from 'react-redux';
-import {  hideProgressBar, showProgressBar } from '../../store/actions/progressBarAction';
-import axios from 'axios';
-import { showError, showSuccess } from '../../store/actions/alertActions';
 
 export default function DeleteEmployee({ employeeId, name, deleteEmployee }) {
 

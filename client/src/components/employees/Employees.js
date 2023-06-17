@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, IconButton, Pagination, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, IconButton, Pagination, Rating, Table, TableBody, TableCell, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { connect, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { loadEmployees } from "../../store/actions/departmentActions";
@@ -40,7 +40,7 @@ import EmployeeQRCode from "./EmployeeQRCode";
         dispatch(showProgressBar())
         axios.post('api/employees/delete', { id }).then(({ data }) => {
             if (data.success) {
-                dispatch(showSuccess('Department deleted successfully'))
+                dispatch(showSuccess('Employee deleted successfully'))
                 dispatch(hideProgressBar())
                 setEmployees( employees => employees.filter(item => item._id !== id) );
 
@@ -62,10 +62,11 @@ import EmployeeQRCode from "./EmployeeQRCode";
         <Box>
             <Box >
                 <Box display="flex" justifyContent="space-between">
-                    <Typography variant="h5"> Employees</Typography>
+                    <Typography variant="h5"> { department.name } - Employees</Typography>
+                    <Rating value={department.rating} readOnly />
                     <Box>
-                        <Button component={Link} to={`/admin/employees/add/${deptId}`} variant="outlined" startIcon={<AddIcon />}>Add Employee</Button>
-                        <Button sx={{ ml: 1 }} onClick={loadEmployees} variant="outlined" endIcon={<RefreshIcon />}>Refresh</Button>
+                      <Button component={Link} to={`/admin/departments/edit/${deptId}`} variant='outlined' sx={{ mr: 1 }} startIcon={<EditIcon />}> Edit Department</Button>
+                      <Button component={Link} to={`/admin/employees/add/${deptId}`} variant='outlined' startIcon={<AddIcon />}> Add Employees</Button>
                     </Box>
                 </Box>
             </Box>
