@@ -24,6 +24,7 @@ import Employees from "./components/employees/Employees";
 import AddEmployees from "./components/employees/AddEmployees";
 import EditEmployees from "./components/employees/EditEmployees";
 import EmployeeProfile from "./components/employees/EmployeeProfile";
+import NotFound404 from "./components/library/NotFound404";
 
 const publicRoutes = [ '/admin/signin', '/admin/forgot-password', '/admin/reset-password/']
 
@@ -34,8 +35,8 @@ function App({loadAuth, signout,isAuthloaded, user, userType}) {
     loadAuth() 
   }, []);
 
-  // if(!isAuthloaded)
-  // return <AppPreLoader message='Loading App ....'/>
+  if(!isAuthloaded)
+  return <AppPreLoader message='Loading App ....'/>
   if(user)
   {
     if( publicRoutes.find(url => location.pathname.startsWith(url)) )
@@ -88,6 +89,7 @@ function App({loadAuth, signout,isAuthloaded, user, userType}) {
           <Route path="/admin/employees/edit/:employeeId" Component={EditEmployees} />
           <Route path="/admin/employees/edit/:employeeId" Component={EditEmployees} />
           <Route path="/admin/employees/profile/:employeeId" Component={EmployeeProfile} />
+          <Route path="*" Component={NotFound404} />
         </Routes>
       </Container>
 
