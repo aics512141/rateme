@@ -9,7 +9,7 @@ import FeedBack from "./feedback/FeedBack";
 
 function AppPublic(){
     return(
-        <Box display="flex" justifyContent="center" alignItems="center" minheight="100%"> 
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="100%"> 
             <Alert />
             <Routes>
                 <Route path="/admin/signin" Component={SignIn} />
